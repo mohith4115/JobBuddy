@@ -1,0 +1,2 @@
+# JobBuddy
+JobBuddy application
