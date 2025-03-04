@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: ApplicationService
+  profiles:
+    active: dev
+
+
+springdoc:
+  swagger-ui:
+    path: /docs
+  api-docs:
+    path: /openapi.json
