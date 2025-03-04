@@ -4,9 +4,18 @@ spring:
   profiles:
     active: dev
 
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: JobBuddy
 
 springdoc:
   swagger-ui:
     path: /docs
   api-docs:
     path: /openapi.json
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
