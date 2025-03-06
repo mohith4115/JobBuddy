@@ -1,14 +1,14 @@
 package com.jobbuddy.UserService.controller;
 
+import com.jobbuddy.UserService.dto.UserPasswordProjection;
+import com.jobbuddy.UserService.dto.UserValidation;
 import com.jobbuddy.UserService.model.User;
 import com.jobbuddy.UserService.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.mongodb.repository.Query;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,5 +30,11 @@ public class UserController {
     @GetMapping("/user/{email}")
     public Optional<User> getUser(@PathVariable  String email){
         return userService.getUser(email);
+    }
+
+    @Operation(summary = "validate user", description = "checks the password of user")
+    @PostMapping("/user/auth/")
+    public boolean validateUser(@RequestBody UserValidation user){
+        return userService.validateUser(user.getEmail(), user.getPassword());
     }
 }

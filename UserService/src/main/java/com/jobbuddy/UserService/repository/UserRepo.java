@@ -13,6 +13,6 @@ public interface UserRepo extends MongoRepository<User,String> {
     public Optional<User> findByEmail(String email);
 
     @Query(value = "{ \"email\" : \"?0\" }")
-    public Optional<UserPasswordProjection> getUserPassword(String email);
+    public Optional<User> getUserPassword(String email);
 
 }

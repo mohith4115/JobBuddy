@@ -3,6 +3,7 @@ package com.jobbuddy.UserService.service;
 import com.jobbuddy.UserService.dto.UserPasswordProjection;
 import com.jobbuddy.UserService.model.User;
 import com.jobbuddy.UserService.repository.UserRepo;
+import com.jobbuddy.UserService.utils.SHA256Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,9 +25,11 @@ public class UserService {
     }
 
     public boolean validateUser(String email,String password){
-        Optional<UserPasswordProjection> user = userRepo.getUserPassword(email);
-        if(user.isPresent()){
-            System.out.println(user);
+        Optional<User> user = userRepo.getUserPassword(email);
+//        System.out.println(SHA256Converter.convertStringToSHA256(password) + "==" + user.get().getPassword_hash());
+        if(user.get().getPassword_hash().equals(SHA256Converter.convertStringToSHA256(password))){
+            System.out.println(SHA256Converter.convertStringToSHA256(password) + "==" + user.get().getPassword_hash());
+            return true;
         }
         return false;
     }

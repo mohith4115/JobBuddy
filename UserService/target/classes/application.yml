@@ -3,6 +3,11 @@ spring:
     name: UserService
   profiles:
     active: dev
+  security:
+    user:
+      name: user  # Replace with your desired username
+      password: user  # Replace with your desired password
+      roles: USER
 
   data:
     mongodb:
