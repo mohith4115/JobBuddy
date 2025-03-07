@@ -1,5 +1,6 @@
 package com.jobbuddy.UserService.controller;
 
+import com.jobbuddy.UserService.dto.UserChangePassword;
 import com.jobbuddy.UserService.dto.UserPasswordProjection;
 import com.jobbuddy.UserService.dto.UserValidation;
 import com.jobbuddy.UserService.model.User;
@@ -36,5 +37,11 @@ public class UserController {
     @PostMapping("/user/auth/")
     public boolean validateUser(@RequestBody UserValidation user){
         return userService.validateUser(user.getEmail(), user.getPassword());
+    }
+
+    @Operation(summary = "reset password",description = "api for resetting the password")
+    @PostMapping("/user/changepassword")
+    public String changePassword(@RequestBody UserChangePassword userChangePassword){
+        return userService.changePassword(userChangePassword);
     }
 }

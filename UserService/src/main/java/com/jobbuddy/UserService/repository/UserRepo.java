@@ -1,5 +1,5 @@
 package com.jobbuddy.UserService.repository;
-
+import org.springframework.data.mongodb.repository.Update;
 import com.jobbuddy.UserService.dto.UserPasswordProjection;
 import com.jobbuddy.UserService.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -14,5 +14,9 @@ public interface UserRepo extends MongoRepository<User,String> {
 
     @Query(value = "{ \"email\" : \"?0\" }")
     public Optional<User> getUserPassword(String email);
+
+    @Query("{ 'email': ?0 }")
+    @Update("{ '$set': { 'password_hash': ?1 } }")
+    void updateUserPassword(String email, String newPasswordHash);
 
 }
