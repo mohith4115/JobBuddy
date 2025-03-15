@@ -21,6 +21,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
+    @Operation(summary = "register new user",description = "registering new users into application")
+    @PostMapping("/user/register")
+    public User registerUser(@RequestBody User user){
+        return userService.saveUser(user);
+    }
+
     @Operation(summary = "all users", description = "returns all the users in the database")
     @GetMapping("/user/all")
     public List<User> getAllUsers(){

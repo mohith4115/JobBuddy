@@ -46,4 +46,11 @@ public class UserService {
         }
         return "new password doesn't match current password";
     }
+
+    public User saveUser(User user){
+        String password = user.getPassword_hash();
+        user.setPassword_hash(SHA256Converter.convertStringToSHA256(password));
+        return userRepo.save(user);
+    }
+
 }
