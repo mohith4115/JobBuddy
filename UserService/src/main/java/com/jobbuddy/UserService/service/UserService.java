@@ -1,6 +1,7 @@
 package com.jobbuddy.UserService.service;
 
 import com.jobbuddy.UserService.dto.UserChangePassword;
+import com.jobbuddy.UserService.dto.UserDto;
 import com.jobbuddy.UserService.dto.UserPasswordProjection;
 import com.jobbuddy.UserService.model.User;
 import com.jobbuddy.UserService.repository.UserRepo;
@@ -47,10 +48,15 @@ public class UserService {
         return "new password doesn't match current password";
     }
 
-    public User saveUser(User user){
+    public User saveUser(UserDto user){
         String password = user.getPassword_hash();
-        user.setPassword_hash(SHA256Converter.convertStringToSHA256(password));
-        return userRepo.save(user);
+        User userdata = new User();
+        userdata.setUsername(user.getUsername());
+        userdata.setEmail(user.getEmail());
+        userdata.setRole(user.getRole());
+        userdata.setProfile(user.getProfile());
+        userdata.setPassword_hash(SHA256Converter.convertStringToSHA256(password));
+        return userRepo.save(userdata);
     }
 
 }

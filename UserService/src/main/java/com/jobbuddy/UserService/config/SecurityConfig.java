@@ -25,7 +25,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(customizer->customizer.disable())
-                .authorizeHttpRequests(request ->request.anyRequest().authenticated())
+                .authorizeHttpRequests(request ->request.requestMatchers("/JobBuddy/user/register")
+                        .permitAll()
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement((session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)));
         return http.build();

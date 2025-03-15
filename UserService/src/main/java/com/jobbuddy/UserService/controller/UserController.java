@@ -1,6 +1,7 @@
 package com.jobbuddy.UserService.controller;
 
 import com.jobbuddy.UserService.dto.UserChangePassword;
+import com.jobbuddy.UserService.dto.UserDto;
 import com.jobbuddy.UserService.dto.UserPasswordProjection;
 import com.jobbuddy.UserService.dto.UserValidation;
 import com.jobbuddy.UserService.model.User;
@@ -24,7 +25,7 @@ public class UserController {
 
     @Operation(summary = "register new user",description = "registering new users into application")
     @PostMapping("/user/register")
-    public User registerUser(@RequestBody User user){
+    public User registerUser(@RequestBody UserDto user){
         return userService.saveUser(user);
     }
 
