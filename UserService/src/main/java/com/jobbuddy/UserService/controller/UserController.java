@@ -5,6 +5,7 @@ import com.jobbuddy.UserService.dto.UserDto;
 import com.jobbuddy.UserService.dto.UserPasswordProjection;
 import com.jobbuddy.UserService.dto.UserValidation;
 import com.jobbuddy.UserService.model.User;
+import com.jobbuddy.UserService.service.JwtService;
 import com.jobbuddy.UserService.service.UserService;
 import com.sun.source.doctree.SummaryTree;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,6 +23,9 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    JwtService jwtService;
 
 
     @Operation(summary = "register new user",description = "registering new users into application")
@@ -54,9 +58,15 @@ public class UserController {
         return userService.changePassword(userChangePassword);
     }
 
-    @Operation(summary = "user login",description = "login and get jwt token")
+    @Operation(summary = "user login",description = "login and get success message")
     @PostMapping("/user/login")
     public String userLogin(UserValidation user){
         return userService.authenticateUser(user);
+    }
+
+    @Operation(summary = "user login with token",description = "login and get jwt token")
+    @PostMapping("/user/gettoken")
+    public String userLoginToken(UserValidation user){
+        return jwtService.generateToken(user.getEmail());
     }
 }
