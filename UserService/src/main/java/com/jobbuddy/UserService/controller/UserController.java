@@ -6,6 +6,7 @@ import com.jobbuddy.UserService.dto.UserPasswordProjection;
 import com.jobbuddy.UserService.dto.UserValidation;
 import com.jobbuddy.UserService.model.User;
 import com.jobbuddy.UserService.service.UserService;
+import com.sun.source.doctree.SummaryTree;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,11 @@ public class UserController {
     @PostMapping("/user/changepassword")
     public String changePassword(@RequestBody UserChangePassword userChangePassword){
         return userService.changePassword(userChangePassword);
+    }
+
+    @Operation(summary = "user login",description = "login and get jwt token")
+    @PostMapping("/user/login")
+    public String userLogin(UserValidation user){
+        return userService.authenticateUser(user);
     }
 }
